@@ -69,6 +69,19 @@ class _$ {
             this.selection.forEach(element => element.innerHTML = html)
             return this
         },
+
+        /**
+         * Apply CSS to selected elements
+         * @param styles CSS styles object
+         */
+        css: (styles: { [k: string]: string }) => {
+            this.selection.forEach(element => {
+                for (const property of Object.keys(styles)) {
+                    element.style.setProperty(property, styles[property])
+                }
+            })
+            return this
+        }
     }
 
     /**
@@ -101,3 +114,6 @@ $('main')
     .set.text('Hello World!')
     .classList.add('bg-red')
     .on('click', (e) => console.log(e))
+    .set.css({
+        'font-size': '3rem'
+    })
