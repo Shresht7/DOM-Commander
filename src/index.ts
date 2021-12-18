@@ -85,6 +85,7 @@ class _$ {
                     element.setAttribute(attr, attributes[attr])
                 }
             })
+            return this
         },
 
         /**
@@ -126,6 +127,19 @@ class _$ {
             this.selection = this.selection.filter(element => element != null)
             return this
         },
+
+        /**
+         * Removes the given attributes from all selected HTML elements
+         * @param attributes List of attributes to remove
+         */
+        attributes: (...attributes: string[]) => {
+            this.selection.forEach(element => {
+                attributes.forEach(attribute => {
+                    element.removeAttribute(attribute)
+                })
+            })
+            return this
+        }
 
     }
 
