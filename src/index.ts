@@ -101,23 +101,32 @@ class _$ {
         }
     }
 
-    /**
-     * Returns the HTML DOM Element at the given index position
-     * @param idx Index position
-     * @returns HTMLElement at index position
-     */
-    get = (idx: number) => {
-        return this.selection[idx]
+    /** Get properties */
+    get = {
+        /**
+         * Returns the HTML DOM Element at the given index position
+         * @param idx Index position
+         * @returns HTMLElement at index position
+         */
+        element: (idx: number) => {
+            return this.selection[idx]
+        }
+
     }
 
-    /**
-     * Removes DOM elements that satisfy the condition (condition default to always return true)
-     * @param condition Callback function to determine whether to remove an element
-     */
-    remove = (condition: (element: HTMLElement) => boolean = () => true) => {
-        this.selection.forEach(element => condition(element) && element.remove())
-        this.selection = this.selection.filter(element => element != null)
-        return this
+    /** Remove properties */
+    remove = {
+
+        /**
+         * Removes DOM elements that satisfy the condition (condition default to always return true)
+         * @param condition Callback function to determine whether to remove an element
+         */
+        element: (condition: (element: HTMLElement) => boolean = () => true) => {
+            this.selection.forEach(element => condition(element) && element.remove())
+            this.selection = this.selection.filter(element => element != null)
+            return this
+        },
+
     }
 
     /**
