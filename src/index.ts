@@ -113,6 +113,28 @@ class _$ {
         return this
     }
 
+    /**
+     * Siblings
+     */
+    sibling = {
+
+        /**
+         * Selects the next element siblings
+         */
+        next: () => {
+            this.selection = this.selection.map(element => element.nextElementSibling as HTMLElement).filter(element => element != null)
+            return this
+        },
+
+        /**
+         * Selects the previous element siblings
+         */
+        prev: () => {
+            this.selection = this.selection.map(element => element.previousElementSibling as HTMLElement).filter(element => element != null)
+            return this
+        }
+    }
+
 }
 
 //  ----------------------------------------------------------------
