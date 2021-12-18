@@ -6,10 +6,15 @@ class _$ {
 
     private selection: HTMLElement[] = []
 
-    constructor(element: HTMLElement | string) {
-        this.selection = typeof element === 'string'
-            ? Array.from(document.querySelectorAll(element))    //  Convert NodeList --> Array
-            : [element]
+    constructor(element: HTMLElement | HTMLElement[] | string) {
+
+        if (typeof element === 'string') {
+            this.selection = Array.from(document.querySelectorAll(element)) //  Convert NodeList --> Array
+        } else if (Array.isArray(element)) {
+            this.selection = [...element]
+        } else {
+            this.selection = [element]
+        }
 
         return this
     }
@@ -137,9 +142,26 @@ class _$ {
 
 }
 
-//  ----------------------------------------------------------------
+/**
+ * DOM Commander
+ * @param element HTML Element or DOM selector
+ */
 function $(element: HTMLElement | string) { return new _$(element) }
-//  ----------------------------------------------------------------
+
+/**
+ * Creates one or more HTML elements
+ * @param tagNames List of HTML tagNames to create
+ */
+$.create = (...tagNames: (keyof HTMLElementTagNameMap)[]) => {
+    const elements: HTMLElement[] = []
+    tagNames.forEach(tagName => {
+        const element = document.createElement(tagName)
+        elements.push(element)
+    })
+    return new _$(elements)
+}
+
+//  =============================================================================================================================================
 
 $('main')
     .set.text('Hello World!')
