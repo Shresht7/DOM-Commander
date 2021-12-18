@@ -80,6 +80,17 @@ class _$ {
         return this.selection[idx]
     }
 
+    /**
+     * Registers a onEvent handler callback
+     * @param event HTML Element Event
+     * @param listener Callback listener to fire on event
+     * @param options Event listener options
+     */
+    on = (event: keyof HTMLElementEventMap, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) => {
+        this.selection.forEach(element => element.addEventListener(event, listener, options))
+        return this
+    }
+
 }
 
 //  ----------------------------------------------------------------
@@ -89,4 +100,4 @@ function $(element: HTMLElement | string) { return new _$(element) }
 $('main')
     .set.text('Hello World!')
     .classList.add('bg-red')
-
+    .on('click', (e) => console.log(e))
