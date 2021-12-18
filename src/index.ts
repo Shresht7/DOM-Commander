@@ -99,6 +99,16 @@ class _$ {
     }
 
     /**
+     * Removes DOM elements that satisfy the condition (condition default to always return true)
+     * @param condition Callback function to determine whether to remove an element
+     */
+    remove = (condition: (element: HTMLElement) => boolean = () => true) => {
+        this.selection.forEach(element => condition(element) && element.remove())
+        this.selection = this.selection.filter(element => element != null)
+        return this
+    }
+
+    /**
      * Registers a onEvent handler callback
      * @param event HTML Element Event
      * @param listener Callback listener to fire on event
