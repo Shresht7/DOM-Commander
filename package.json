@@ -1,0 +1,15 @@
+{
+  "name": "dom-commander",
+  "version": "1.0.0",
+  "description": "A makeshift vanilla js DOM-manipulation library with jQuery-like syntax",
+  "main": "lib/index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "dev": "tsc -w"
+  },
+  "author": "Shresht7",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.5.4"
+  }
+}
