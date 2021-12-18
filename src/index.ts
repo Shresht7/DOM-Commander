@@ -76,6 +76,18 @@ class _$ {
         },
 
         /**
+         * Sets attributes to all HTML elements
+         * @param attributes Key-Value pairs of attributes
+         */
+        attributes: (attributes: { [k: string]: string }) => {
+            this.selection.forEach(element => {
+                for (const attr of Object.keys(attributes)) {
+                    element.setAttribute(attr, attributes[attr])
+                }
+            })
+        },
+
+        /**
          * Apply CSS to selected elements
          * @param styles CSS styles object
          */
