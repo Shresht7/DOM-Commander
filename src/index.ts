@@ -4,7 +4,7 @@
 
 class _$ {
 
-    private readonly selection: HTMLElement[] = []
+    private selection: HTMLElement[] = []
 
     constructor(element: HTMLElement | string) {
         this.selection = typeof element === 'string'
@@ -101,6 +101,15 @@ class _$ {
      */
     on = (event: keyof HTMLElementEventMap, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) => {
         this.selection.forEach(element => element.addEventListener(event, listener, options))
+        return this
+    }
+
+    /**
+     * Filters elements based on provided criteria
+     * @param cb Callback function to determine filter criteria
+     */
+    filter = (cb: (element: HTMLElement, idx: number, arr: HTMLElement[]) => boolean) => {
+        this.selection = this.selection.filter(cb)
         return this
     }
 
