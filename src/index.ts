@@ -119,9 +119,9 @@ class _$ {
     }
 
     /**
-     * Siblings
+     * nodes
      */
-    sibling = {
+    node = {
 
         /**
          * Selects the next element siblings
@@ -136,6 +136,15 @@ class _$ {
          */
         prev: () => {
             this.selection = this.selection.map(element => element.previousElementSibling as HTMLElement).filter(element => element != null)
+            return this
+        },
+
+        /**
+         * Appends the given HTML nodes to the selected DOM elements
+         * @param nodes HTML Nodes
+         */
+        append: (...nodes: (string | Node)[]) => {
+            this.selection.forEach(element => element.append(...nodes))
             return this
         }
     }
