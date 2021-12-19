@@ -1,9 +1,9 @@
 
 $('main')
-    .set.text('Hello World!')
-    .classList.add('bg-red')
-    .on('click', (e) => console.log(e))
-    .set.css({
+    .setText('Hello World!')
+    .addClass('bg-red')
+    .setCSS({
         'font-size': '3rem',
         color: 'whitesmoke'
     })
+    .on('click', (e) => console.log(e))
