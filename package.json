@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "tsc": "tsc",
-    "dev": "tsc -w"
+    "dev": "tsc -w",
+    "clean": "npx rimraf lib"
   },
   "author": "Shresht7",
   "license": "MIT",
