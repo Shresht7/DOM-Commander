@@ -52,6 +52,23 @@ class _$ {
         return this
     }
 
+    /**
+     * Checks if all selected elements have the given classes
+     * @param tokens CSS classNames
+     */
+    hasClass = (...tokens: string[]) => {
+        return this.selection.every(element => {
+            let allHaveToken = true
+            for (const token of tokens) {
+                if (!element.classList.contains(token)) {
+                    allHaveToken = false
+                    break
+                }
+            }
+            return allHaveToken
+        })
+    }
+
 
     //  ===
     //  SET
@@ -218,7 +235,7 @@ class _$ {
  * DOM Commander
  * @param element HTML Element or DOM selector
  */
-function $(element: HTMLElement | string) { return new _$(element) }
+const $ = (element: HTMLElement | string) => new _$(element)
 
 //  ==============
 //  CREATE ELEMENT
