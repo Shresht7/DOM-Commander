@@ -2,14 +2,26 @@
   "name": "dom-commander",
   "version": "1.0.0",
   "description": "A makeshift vanilla js DOM-manipulation library with jQuery-like syntax",
-  "main": "lib/index.js",
-  "scripts": {
-    "tsc": "tsc",
-    "dev": "tsc -w",
-    "clean": "npx rimraf lib"
-  },
   "author": "Shresht7",
   "license": "MIT",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shresht7/DOM-Commander.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Shresht7/DOM-Commander/issues"
+  },
+  "homepage": "https://github.com/Shresht7/DOM-Commander#README.md",
+  "keywords": [
+    "dom",
+    "dom-manipulation",
+    "vanilla.js"
+  ],
+  "scripts": {
+    "tsc": "tsc",
+    "dev": "tsc -w"
+  },
   "devDependencies": {
     "typescript": "^5.3.3"
   }
