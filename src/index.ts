@@ -164,55 +164,33 @@ class Selection {
         })
     }
 
+    // STYLE
+    // -----
 
-    //  ===
-    //  SET
-    //  ===
+    public style = {
 
-    /**
-     * Sets the innerText to given string
-     * @param text Text
-     */
-    setText = (text: string) => {
-        this.forEach(element => element.innerText = text)
-        return this
+        /**
+         * Sets the CSS property to the given value for all selected elements
+         * @param property CSS property
+         * @param value CSS property value
+         */
+        setProperty: (property: string, value: string) => {
+            this.selection.forEach(element => element.style.setProperty(property, value))
+            return this
+        },
+
+        /**
+         * Removes the CSS property from all selected elements
+         * @param property CSS property
+         */
+        removeProperty: (property: string) => {
+            this.selection.forEach(element => element.style.removeProperty(property))
+            return this
+        },
+
     }
 
-    /**
-     * Sets the innerHTML to given string
-     * @param html HTML markup
-     */
-    setHTML = (html: string) => {
-        this.forEach(element => element.innerHTML = html)
-        return this
-    }
-
-    /**
-     * Sets attributes to all HTML elements
-     * @param attributes Key-Value pairs of attributes
-     */
-    setAttributes = (attributes: { [name: string]: string }) => {
-        this.forEach(element => {
-            for (const name of Object.keys(attributes)) {
-                element.setAttribute(name, attributes[name])
-            }
-        })
-        return this
-    }
-
-
-    /**
-     * Apply CSS to selected elements
-     * @param styles CSS styles object
-     */
-    setCSS = (styles: { [k: string]: string }) => {
-        this.forEach(element => {
-            for (const property of Object.keys(styles)) {
-                element.style.setProperty(property, styles[property])
-            }
-        })
-        return this
-    }
+}
 
     //  ===
     //  GET
