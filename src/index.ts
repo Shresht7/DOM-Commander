@@ -123,57 +123,28 @@ class Selection {
 
     }
 
+    // ATTRIBUTES
+    // ----------
+
+    /**
+     * Returns the value of the given attribute for all selected elements
+     * @param name Attribute name
+     */
+    public getAttribute(name: string) {
+        return this.selection.map(element => element.getAttribute(name))
+    }
+
+    /**
+     * Sets the value of the given attribute for all selected elements
+     * @param name The name of the attribute whose value is to be set
+     * @param value The value to set the attribute to
+     */
+    public setAttribute(name: string, value: string) {
+        this.selection.forEach(element => element.setAttribute(name, value))
+        return this
+    }
+
 }
-
-class _$ {
-
-    private selection: HTMLElement[] = []
-
-    constructor(element: HTMLElement | HTMLElement[] | string) {
-
-        if (typeof element === 'string') {
-            this.selection = Array.from(document.querySelectorAll(element)) //  Convert NodeList --> Array
-        } else if (Array.isArray(element)) {
-            this.selection = [...element]
-        } else {
-            this.selection = [element]
-        }
-
-        return this
-    }
-
-
-    //  ==========
-    //  CLASS-LIST
-    //  ==========
-
-    /**
-     * Adds the classNames to the classLists array
-     * @param tokens CSS classNames
-     */
-    addClass = (...tokens: string[]) => {
-        this.forEach(element => element.classList.add(...tokens))
-        return this
-    }
-
-    /**
-     * Removes the classNames from the classLists array
-     * @param tokens CSS classNames
-     */
-    removeClass = (...tokens: string[]) => {
-        this.forEach(element => element.classList.remove(...tokens))
-        return this
-    }
-
-    /**
-     * Toggles a CSS class in the classList array
-     * @param token CSS className
-     * @param force force set boolean to value
-     */
-    toggleClass = (token: string, force?: boolean) => {
-        this.forEach(element => element.classList.toggle(token, force))
-        return this
-    }
 
     /**
      * Checks if all selected elements have the given classes
