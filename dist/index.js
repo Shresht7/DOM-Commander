@@ -1,202 +1,170 @@
 // src/index.ts
 var _$ = class {
-  constructor(element) {
+  // CONSTRUCTOR
+  // -----------
+  /**
+   * Instantiates a new Selection object
+   * @param elements List of HTML elements or DOM selectors to select
+   */
+  constructor(...elements) {
+    /** The selection of elements to manipulate */
     this.selection = [];
-    //  ==========
-    //  CLASS-LIST
-    //  ==========
-    /**
-     * Adds the classNames to the classLists array
-     * @param tokens CSS classNames
-     */
-    this.addClass = (...tokens) => {
-      this.forEach((element) => element.classList.add(...tokens));
-      return this;
+    // CLASS-LIST
+    // ----------
+    /** Allows for manipulation of selection's class tokens */
+    this.classList = {
+      /**
+       * Adds the classNames to the classLists array
+       * @param tokens CSS classNames
+       * @see {@link DOMTokenList.add}
+       */
+      add: (...tokens) => {
+        this.selection.forEach((element) => element.classList.add(...tokens));
+        return this;
+      },
+      /**
+       * Removes the classNames from the classLists array
+       * @param tokens CSS classNames
+       * @see {@link DOMTokenList.remove}
+       */
+      remove: (...tokens) => {
+        this.selection.forEach((element) => element.classList.remove(...tokens));
+        return this;
+      },
+      /**
+       * Toggles a CSS class in the classList array
+       * @param token CSS className
+       * @param force force set boolean to value
+       * @see {@link DOMTokenList.toggle}
+       */
+      toggle: (token, force) => {
+        this.selection.forEach((element) => element.classList.toggle(token, force));
+        return this;
+      },
+      /**
+       * Checks if all selected elements have the given class
+       * @param tokens CSS className
+       */
+      every: (token) => {
+        return this.selection.every((element) => element.classList.contains(token));
+      },
+      /**
+       * Checks if any selected elements have the given class
+       * @param tokens CSS className
+       */
+      some: (token) => {
+        return this.selection.some((element) => element.classList.contains(token));
+      }
     };
-    /**
-     * Removes the classNames from the classLists array
-     * @param tokens CSS classNames
-     */
-    this.removeClass = (...tokens) => {
-      this.forEach((element) => element.classList.remove(...tokens));
-      return this;
+    // STYLE
+    // -----
+    this.style = {
+      /**
+       * Sets the CSS property to the given value for all selected elements
+       * @param property CSS property
+       * @param value CSS property value
+       */
+      setProperty: (property, value) => {
+        this.selection.forEach((element) => element.style.setProperty(property, value));
+        return this;
+      },
+      /**
+       * Removes the CSS property from all selected elements
+       * @param property CSS property
+       */
+      removeProperty: (property) => {
+        this.selection.forEach((element) => element.style.removeProperty(property));
+        return this;
+      }
     };
-    /**
-     * Toggles a CSS class in the classList array
-     * @param token CSS className
-     * @param force force set boolean to value
-     */
-    this.toggleClass = (token, force) => {
-      this.forEach((element) => element.classList.toggle(token, force));
-      return this;
-    };
-    /**
-     * Checks if all selected elements have the given classes
-     * @param tokens CSS classNames
-     */
-    this.hasClass = (...tokens) => {
-      return this.selection.every((element) => {
-        let allHaveToken = true;
-        for (const token of tokens) {
-          if (!element.classList.contains(token)) {
-            allHaveToken = false;
-            break;
-          }
-        }
-        return allHaveToken;
-      });
-    };
-    //  ===
-    //  SET
-    //  ===
-    /**
-     * Sets the innerText to given string
-     * @param text Text
-     */
-    this.setText = (text) => {
-      this.forEach((element) => element.innerText = text);
-      return this;
-    };
-    /**
-     * Sets the innerHTML to given string
-     * @param html HTML markup
-     */
-    this.setHTML = (html) => {
-      this.forEach((element) => element.innerHTML = html);
-      return this;
-    };
-    /**
-     * Sets attributes to all HTML elements
-     * @param attributes Key-Value pairs of attributes
-     */
-    this.setAttributes = (attributes) => {
-      this.forEach((element) => {
-        for (const name of Object.keys(attributes)) {
-          element.setAttribute(name, attributes[name]);
-        }
-      });
-      return this;
-    };
-    /**
-     * Apply CSS to selected elements
-     * @param styles CSS styles object
-     */
-    this.setCSS = (styles) => {
-      this.forEach((element) => {
-        for (const property of Object.keys(styles)) {
-          element.style.setProperty(property, styles[property]);
-        }
-      });
-      return this;
-    };
-    //  ===
-    //  GET
-    //  ===
-    /**
-     * Returns the HTML DOM Element at the given index position
-     * @param idx Index position
-     * @returns HTMLElement at index position
-     */
-    this.getElement = (idx) => {
-      return this.selection[idx];
-    };
-    //  ======
-    //  REMOVE
-    //  ======
-    /**
-     * Removes DOM elements that satisfy the condition (condition default to always return true)
-     * @param condition Callback function to determine whether to remove an element
-     */
-    this.removeElement = (condition = () => true) => {
-      this.forEach((element) => condition(element) && element.remove());
-      this.filter((element) => element != null);
-      return this;
-    };
-    /**
-     * Removes the given attributes from all selected HTML elements
-     * @param attributes List of attributes to remove
-     */
-    this.removeAttribute = (name) => {
-      this.forEach((element) => element.removeAttribute(name));
-      return this;
-    };
-    //  =====
-    //  NODES
-    //  =====
-    /**
-     * Selects the enxt element siblings
-     */
-    this.next = () => {
-      this.selection = this.selection.map((element) => element.nextElementSibling).filter((element) => element != null);
-      return this;
-    };
-    /**
-     * Selects the previous element siblings
-     */
-    this.prev = () => {
-      this.selection = this.selection.map((element) => element.previousElementSibling).filter((element) => element != null);
-      return this;
-    };
-    /**
-     * Appends the given HTML nodes to the selected DOM elements
-     * @param nodes HTML Nodes
-     */
-    this.append = (...nodes) => {
-      this.forEach((element) => element.append(...nodes));
-      return this;
-    };
-    //  ======
-    //  EVENTS
-    //  ======
-    /**
-     * Registers a onEvent handler callback
-     * @param event HTML Element Event
-     * @param listener Callback listener to fire on event
-     * @param options Event listener options
-     */
-    this.on = (event, listener, options) => {
-      this.selection.forEach((element) => element.addEventListener(event, listener, options));
-      return this;
-    };
-    //  =======
-    //  UTILITY
-    //  =======
-    /**
-     * Filters elements based on provided criteria
-     * @param cb Callback function to determine filter criteria
-     */
-    this.filter = (cb) => {
-      this.selection = this.selection.filter(cb);
-      return this;
-    };
-    /**
-     * Executes a callback for each HTML element
-     * @param cb Callback function
-     * @returns 
-     */
-    this.forEach = (cb) => {
-      this.selection.forEach(cb);
-      return this;
-    };
-    if (typeof element === "string") {
-      this.selection = Array.from(document.querySelectorAll(element));
-    } else if (Array.isArray(element)) {
-      this.selection = [...element];
-    } else {
-      this.selection = [element];
+    if (elements) {
+      this.select(...elements);
+    }
+  }
+  // ARRAY-LIKE METHODS
+  // ------------------
+  /** Returns the element at the given index position */
+  at(index) {
+    return this.selection.at(index);
+  }
+  /** Returns the length of the selection array */
+  get length() {
+    return this.selection.length;
+  }
+  /** Execute a callback function for each selected element */
+  forEach(cb) {
+    this.selection.forEach(cb);
+  }
+  /** Filter the selection based on a callback function */
+  filter(cb) {
+    this.selection = this.selection.filter(cb);
+    return this;
+  }
+  // SELECT
+  // ------
+  /**
+   * Selects HTML elements and appends them to the selection
+   * @param elements List of HTML elements or DOM selectors to select
+   */
+  select(...elements) {
+    for (const element of elements) {
+      if (typeof element === "string") {
+        const s = document.querySelectorAll(element);
+        this.selection.push(...Array.from(s));
+      } else {
+        this.selection.push(element);
+      }
     }
     return this;
   }
+  // CONTENTS
+  // --------
+  set textContent(text) {
+    this.selection.forEach((element) => element.textContent = text);
+  }
+  set innerHTML(text) {
+    this.selection.forEach((element) => element.innerHTML = text);
+  }
+  // ATTRIBUTES
+  // ----------
+  /**
+   * Returns the value of the given attribute for all selected elements
+   * @param name Attribute name
+   */
+  getAttribute(name) {
+    return this.selection.map((element) => element.getAttribute(name));
+  }
+  /**
+   * Sets the value of the given attribute for all selected elements
+   * @param name The name of the attribute whose value is to be set
+   * @param value The value to set the attribute to
+   */
+  setAttribute(name, value) {
+    this.selection.forEach((element) => element.setAttribute(name, value));
+    return this;
+  }
+  /**
+   * Removes the given attribute from all selected elements
+   * @param name The name of the attribute to remove
+   */
+  removeAttribute(name) {
+    this.selection.forEach((element) => element.removeAttribute(name));
+    return this;
+  }
+  // EVENT LISTENER
+  // --------------
+  /** Add an event listener to all selected elements */
+  addEventListener(event, listener, options) {
+    this.selection.forEach((element) => element.addEventListener(event, listener, options));
+    return this;
+  }
+  /** Remove an event listener from all selected elements */
+  removeEventListener(event, listener, options) {
+    this.selection.forEach((element) => element.removeEventListener(event, listener, options));
+    return this;
+  }
 };
-var $ = (element) => new _$(element);
-$.create = (...tagNames) => {
-  const elements = [];
-  tagNames.forEach((tagName) => {
-    const element = document.createElement(tagName);
-    elements.push(element);
-  });
-  return new _$(elements);
-};
+var $ = (...elements) => new _$(...elements);
 export {
   $
 };
