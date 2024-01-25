@@ -69,6 +69,15 @@ class _$ {
         return this
     }
 
+    // REMOVE
+    // ------
+
+    /** Removes all selected elements from the DOM */
+    remove() {
+        this.selection.forEach(element => element.remove())
+        return this
+    }
+
     // CONTENTS
     // --------
 
