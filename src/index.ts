@@ -11,13 +11,13 @@ type HTMLElementOrSelector = HTMLElement | string
 class Selection {
 
     /** The selection of elements to manipulate */
-    private selection: Element[] = []
+    private selection: HTMLElement[] = []
 
     // ARRAY-LIKE METHODS
     // ------------------
 
     /** Returns the element at the given index position */
-    at(index: number): Element | undefined {
+    at(index: number): HTMLElement | undefined {
         return this.selection.at(index)
     }
 
@@ -49,7 +49,8 @@ class Selection {
     public select(...elements: HTMLElementOrSelector[]) {
         for (const element of elements) {
             if (typeof element === 'string') {
-                this.selection.push(...Array.from(document.querySelectorAll(element))) //  Convert NodeList --> Array
+                const s = document.querySelectorAll(element) as NodeListOf<HTMLElement>
+                this.selection.push(...Array.from(s)) //  Convert NodeList --> Array
             } else {
                 this.selection.push(element)
             }
