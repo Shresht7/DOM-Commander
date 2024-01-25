@@ -15,7 +15,8 @@ const options = {
     entryPoints: ["src/index.ts"], // Entry point
     outfile: "dist/index.js", // Output file
     mainFields: ["module", "main"], // Use the module field in package.json files
-    target: "es2020" // Target ES2020
+    target: "es2020", // Target ES2020
+    format: "esm", // Output format
 };
 
 // Build
