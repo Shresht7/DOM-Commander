@@ -42,6 +42,61 @@ class Selection extends Array<Element> {
         return this
     }
 
+    // CLASS-LIST
+    // ----------
+
+    /** Allows for manipulation of selection's class tokens */
+    public readonly classList = {
+
+        /**
+         * Adds the classNames to the classLists array
+         * @param tokens CSS classNames
+         * @see {@link DOMTokenList.add}
+         */
+        add: (...tokens: string[]) => {
+            this.forEach(element => element.classList.add(...tokens))
+            return this
+        },
+
+        /**
+         * Removes the classNames from the classLists array
+         * @param tokens CSS classNames
+         * @see {@link DOMTokenList.remove}
+         */
+        remove: (...tokens: string[]) => {
+            this.forEach(element => element.classList.remove(...tokens))
+            return this
+        },
+
+        /**
+         * Toggles a CSS class in the classList array
+         * @param token CSS className
+         * @param force force set boolean to value
+         * @see {@link DOMTokenList.toggle}
+         */
+        toggle: (token: string, force?: boolean) => {
+            this.forEach(element => element.classList.toggle(token, force))
+            return this
+        },
+
+        /**
+         * Checks if all selected elements have the given class
+         * @param tokens CSS className
+         */
+        every: (token: string) => {
+            return this.every(element => element.classList.contains(token))
+        },
+
+        /**
+         * Checks if any selected elements have the given class
+         * @param tokens CSS className
+         */
+        some: (token: string) => {
+            return this.some(element => element.classList.contains(token))
+        }
+
+    }
+
 }
 
 class _$ {
