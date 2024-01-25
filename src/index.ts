@@ -57,7 +57,7 @@ class _$ {
      * Selects HTML elements and appends them to the selection
      * @param elements List of HTML elements or DOM selectors to select
      */
-    public select(...elements: HTMLElementOrSelector[]) {
+    select(...elements: HTMLElementOrSelector[]) {
         for (const element of elements) {
             if (typeof element === 'string') {
                 const s = document.querySelectorAll(element) as NodeListOf<HTMLElement>
@@ -84,7 +84,7 @@ class _$ {
     // ----------
 
     /** Allows for manipulation of selection's class tokens */
-    public readonly classList = {
+    readonly classList = {
 
         /**
          * Adds the classNames to the classLists array
@@ -142,7 +142,7 @@ class _$ {
      * Returns the value of the given attribute for all selected elements
      * @param name Attribute name
      */
-    public getAttribute(name: string) {
+    getAttribute(name: string) {
         return this.selection.map(element => element.getAttribute(name))
     }
 
@@ -151,7 +151,7 @@ class _$ {
      * @param name The name of the attribute whose value is to be set
      * @param value The value to set the attribute to
      */
-    public setAttribute(name: string, value: string) {
+    setAttribute(name: string, value: string) {
         this.selection.forEach(element => element.setAttribute(name, value))
         return this
     }
@@ -160,7 +160,7 @@ class _$ {
      * Removes the given attribute from all selected elements
      * @param name The name of the attribute to remove
      */
-    public removeAttribute(name: string) {
+    removeAttribute(name: string) {
         this.selection.forEach(element => element.removeAttribute(name))
         return this
     }
@@ -168,7 +168,7 @@ class _$ {
     // STYLE
     // -----
 
-    public style = {
+    readonly style = {
 
         /**
          * Sets the CSS property to the given value for all selected elements
@@ -195,13 +195,13 @@ class _$ {
     // --------------
 
     /** Add an event listener to all selected elements */
-    public addEventListener(event: keyof HTMLElementEventMap, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) {
+    addEventListener(event: keyof HTMLElementEventMap, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) {
         this.selection.forEach(element => element.addEventListener(event, listener, options))
         return this
     }
 
     /** Remove an event listener from all selected elements */
-    public removeEventListener(event: keyof HTMLElementEventMap, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) {
+    removeEventListener(event: keyof HTMLElementEventMap, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) {
         this.selection.forEach(element => element.removeEventListener(event, listener, options))
         return this
     }
