@@ -1,3 +1,4 @@
+import { $ } from '../dist/index.js'
 
 $('main')
     .setText('Hello World!')
