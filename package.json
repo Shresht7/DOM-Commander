@@ -4,7 +4,7 @@
   "description": "A makeshift vanilla js DOM-manipulation library with jQuery-like syntax",
   "author": "Shresht7",
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Shresht7/DOM-Commander.git"
@@ -20,9 +20,12 @@
   ],
   "scripts": {
     "tsc": "tsc",
-    "dev": "tsc -w"
+    "dev": "node ./esbuild.mjs",
+    "build": "node ./esbuild.mjs --production"
   },
   "devDependencies": {
+    "@types/node": "^20.11.6",
+    "esbuild": "^0.19.12",
     "typescript": "^5.3.3"
   }
 }
