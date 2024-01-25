@@ -191,111 +191,18 @@ class Selection {
 
     }
 
-}
+    // EVENT LISTENER
+    // --------------
 
-    //  ===
-    //  GET
-    //  ===
-
-    /**
-     * Returns the HTML DOM Element at the given index position
-     * @param idx Index position
-     * @returns HTMLElement at index position
-     */
-    getElement = (idx: number) => {
-        return this.selection[idx]
-    }
-
-    //  ======
-    //  REMOVE
-    //  ======
-
-    /**
-     * Removes DOM elements that satisfy the condition (condition default to always return true)
-     * @param condition Callback function to determine whether to remove an element
-     */
-    removeElement = (condition: (element: HTMLElement) => boolean = () => true) => {
-        this.forEach(element => condition(element) && element.remove())
-        this.filter((element) => element != null)
-        return this
-    }
-
-
-    /**
-     * Removes the given attributes from all selected HTML elements
-     * @param attributes List of attributes to remove
-     */
-    removeAttribute = (name: string) => {
-        this.forEach(element => element.removeAttribute(name))
-        return this
-    }
-
-    //  =====
-    //  NODES
-    //  =====
-
-    /**
-     * Selects the enxt element siblings
-     */
-    next = () => {
-        this.selection = this.selection.map(element => element.nextElementSibling as HTMLElement).filter(element => element != null)
-        return this
-    }
-
-
-    /**
-     * Selects the previous element siblings
-     */
-    prev = () => {
-        this.selection = this.selection.map(element => element.previousElementSibling as HTMLElement).filter(element => element != null)
-        return this
-    }
-
-
-    /**
-     * Appends the given HTML nodes to the selected DOM elements
-     * @param nodes HTML Nodes
-     */
-    append = (...nodes: (string | Node)[]) => {
-        this.forEach(element => element.append(...nodes))
-        return this
-    }
-
-    //  ======
-    //  EVENTS
-    //  ======
-
-    /**
-     * Registers a onEvent handler callback
-     * @param event HTML Element Event
-     * @param listener Callback listener to fire on event
-     * @param options Event listener options
-     */
-    on = (event: keyof HTMLElementEventMap, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) => {
+    /** Add an event listener to all selected elements */
+    public addEventListener(event: keyof HTMLElementEventMap, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) {
         this.selection.forEach(element => element.addEventListener(event, listener, options))
         return this
     }
 
-    //  =======
-    //  UTILITY
-    //  =======
-
-    /**
-     * Filters elements based on provided criteria
-     * @param cb Callback function to determine filter criteria
-     */
-    filter = (cb: (element: HTMLElement, idx: number, arr: HTMLElement[]) => boolean) => {
-        this.selection = this.selection.filter(cb)
-        return this
-    }
-
-    /**
-     * Executes a callback for each HTML element
-     * @param cb Callback function
-     * @returns 
-     */
-    forEach = (cb: (element: HTMLElement, idx: number, arr: HTMLElement[]) => void) => {
-        this.selection.forEach(cb)
+    /** Remove an event listener from all selected elements */
+    public removeEventListener(event: keyof HTMLElementEventMap, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) {
+        this.selection.forEach(element => element.removeEventListener(event, listener, options))
         return this
     }
 
