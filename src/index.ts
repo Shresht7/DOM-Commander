@@ -214,6 +214,33 @@ class _$ {
         return this
     }
 
+    // CHILDREN
+    // --------
+
+    /** Appends the children to all selected elements */
+    append(...children: HTMLElement[]) {
+        this.selection.forEach(element => element.append(...children))
+        return this
+    }
+
+    /** Prepends the children to all selected elements */
+    prepend(...children: HTMLElement[]) {
+        this.selection.forEach(element => element.prepend(...children))
+        return this
+    }
+
+    /** Appends the child to all selected elements */
+    appendChild(child: HTMLElement) {
+        this.selection.forEach(element => element.appendChild(child))
+        return this
+    }
+
+    /** Removes the child from all selected elements */
+    removeChild(child: HTMLElement) {
+        this.selection.forEach(element => element.removeChild(child))
+        return this
+    }
+
 }
 
 export const $ = (...elements: HTMLElementOrSelector[]) => new _$(...elements)
