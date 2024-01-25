@@ -1,11 +1,15 @@
-# DOM Commander
+# `DOM Commander`
 
-A makeshift vanilla js DOM-manipulation library with jQuery-like syntax.
+A makeshift vanilla-js DOM-manipulation library with jQuery-like syntax.
+
 
 ## Features
 
 - Selection and manipulation of multiple elements
 - Chainable methods for easier DOM manipulation
+
+> [!NOTE]
+> This is something I made for fun. Do not take this too seriously.
 
 ## Usage
 
