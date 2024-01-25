@@ -1,10 +1,11 @@
+// @ts-check
+
 import { $ } from '../dist/index.js'
 
+$('main').textContent = 'Hello World!'
+
 $('main')
-    .setText('Hello World!')
-    .addClass('bg-red')
-    .setCSS({
-        'font-size': '3rem',
-        color: 'whitesmoke'
-    })
-    .on('click', (e) => console.log(e))
+    .classList.add('bg-red')
+    .style.setProperty('font-size', '3rem')
+    .style.setProperty('color', 'whitesmoke')
+    .addEventListener('click', (e) => console.log(e))
