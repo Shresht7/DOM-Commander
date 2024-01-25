@@ -13,6 +13,19 @@ class Selection {
     /** The selection of elements to manipulate */
     private selection: Element[] = []
 
+    // ARRAY-LIKE METHODS
+    // ------------------
+
+    /** Returns the element at the given index position */
+    at(index: number): Element | undefined {
+        return this.selection.at(index)
+    }
+
+    /** Returns the length of the selection array */
+    get length() {
+        return this.selection.length
+    }
+
     // CONSTRUCTOR
     // -----------
 
