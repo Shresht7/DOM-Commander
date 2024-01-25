@@ -26,6 +26,17 @@ class Selection {
         return this.selection.length
     }
 
+    /** Execute a callback function for each selected element */
+    forEach(cb: (element: HTMLElement, idx: number, arr: HTMLElement[]) => void) {
+        this.selection.forEach(cb)
+    }
+
+    /** Filter the selection based on a callback function */
+    filter(cb: (element: HTMLElement, idx: number, arr: HTMLElement[]) => boolean) {
+        this.selection = this.selection.filter(cb)
+        return this
+    }
+
     // CONSTRUCTOR
     // -----------
 
