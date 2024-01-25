@@ -7,6 +7,7 @@ A makeshift vanilla-js DOM-manipulation library with jQuery-like syntax.
 
 - Selection and manipulation of multiple elements
 - Chainable methods for easier DOM manipulation
+- Similar API to standard DOM methods
 
 > [!NOTE]
 > This is something I made for fun. Do not take this too seriously.
