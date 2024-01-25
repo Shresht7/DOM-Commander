@@ -8,7 +8,7 @@ type HTMLElementOrSelector = HTMLElement | string
 // SELECTION
 // ---------
 
-class Selection {
+class _$ {
 
     /** The selection of elements to manipulate */
     private selection: HTMLElement[] = []
@@ -208,29 +208,4 @@ class Selection {
 
 }
 
-//  =============
-//  MAIN FUNCTION
-//  =============
-
-/**
- * DOM Commander
- * @param element HTML Element or DOM selector
- */
-export const $ = (element: HTMLElement | string) => new _$(element)
-
-//  ==============
-//  CREATE ELEMENT
-//  ==============
-
-/**
- * Creates one or more HTML elements
- * @param tagNames List of HTML tagNames to create
- */
-$.create = (...tagNames: (keyof HTMLElementTagNameMap)[]) => {
-    const elements: HTMLElement[] = []
-    tagNames.forEach(tagName => {
-        const element = document.createElement(tagName)
-        elements.push(element)
-    })
-    return new _$(elements)
-}
+export const $ = (...elements: HTMLElementOrSelector[]) => new _$(...elements)
