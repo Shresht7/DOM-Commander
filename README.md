@@ -19,4 +19,4 @@ $('.red').classList.add('hide') // Adds the class 'hide' to all elements with th
 
 ## License
 
-This project is licensed under the [MIT](./LICENSE) License.
+This project is licensed under the [MIT](./LICENSE) License. See [LICENSE](./LICENSE) for more information.
