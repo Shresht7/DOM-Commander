@@ -235,7 +235,7 @@ class _$ {
  * DOM Commander
  * @param element HTML Element or DOM selector
  */
-const $ = (element: HTMLElement | string) => new _$(element)
+export const $ = (element: HTMLElement | string) => new _$(element)
 
 //  ==============
 //  CREATE ELEMENT

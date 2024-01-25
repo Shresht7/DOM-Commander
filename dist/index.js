@@ -1,1 +1,203 @@
-"use strict";(()=>{var n=class{constructor(e){this.selection=[];this.addClass=(...e)=>(this.forEach(t=>t.classList.add(...e)),this);this.removeClass=(...e)=>(this.forEach(t=>t.classList.remove(...e)),this);this.toggleClass=(e,t)=>(this.forEach(r=>r.classList.toggle(e,t)),this);this.hasClass=(...e)=>this.selection.every(t=>{let r=!0;for(let i of e)if(!t.classList.contains(i)){r=!1;break}return r});this.setText=e=>(this.forEach(t=>t.innerText=e),this);this.setHTML=e=>(this.forEach(t=>t.innerHTML=e),this);this.setAttributes=e=>(this.forEach(t=>{for(let r of Object.keys(e))t.setAttribute(r,e[r])}),this);this.setCSS=e=>(this.forEach(t=>{for(let r of Object.keys(e))t.style.setProperty(r,e[r])}),this);this.getElement=e=>this.selection[e];this.removeElement=(e=()=>!0)=>(this.forEach(t=>e(t)&&t.remove()),this.filter(t=>t!=null),this);this.removeAttribute=e=>(this.forEach(t=>t.removeAttribute(e)),this);this.next=()=>(this.selection=this.selection.map(e=>e.nextElementSibling).filter(e=>e!=null),this);this.prev=()=>(this.selection=this.selection.map(e=>e.previousElementSibling).filter(e=>e!=null),this);this.append=(...e)=>(this.forEach(t=>t.append(...e)),this);this.on=(e,t,r)=>(this.selection.forEach(i=>i.addEventListener(e,t,r)),this);this.filter=e=>(this.selection=this.selection.filter(e),this);this.forEach=e=>(this.selection.forEach(e),this);return typeof e=="string"?this.selection=Array.from(document.querySelectorAll(e)):Array.isArray(e)?this.selection=[...e]:this.selection=[e],this}},o=s=>new n(s);o.create=(...s)=>{let e=[];return s.forEach(t=>{let r=document.createElement(t);e.push(r)}),new n(e)};})();
+// src/index.ts
+var _$ = class {
+  constructor(element) {
+    this.selection = [];
+    //  ==========
+    //  CLASS-LIST
+    //  ==========
+    /**
+     * Adds the classNames to the classLists array
+     * @param tokens CSS classNames
+     */
+    this.addClass = (...tokens) => {
+      this.forEach((element) => element.classList.add(...tokens));
+      return this;
+    };
+    /**
+     * Removes the classNames from the classLists array
+     * @param tokens CSS classNames
+     */
+    this.removeClass = (...tokens) => {
+      this.forEach((element) => element.classList.remove(...tokens));
+      return this;
+    };
+    /**
+     * Toggles a CSS class in the classList array
+     * @param token CSS className
+     * @param force force set boolean to value
+     */
+    this.toggleClass = (token, force) => {
+      this.forEach((element) => element.classList.toggle(token, force));
+      return this;
+    };
+    /**
+     * Checks if all selected elements have the given classes
+     * @param tokens CSS classNames
+     */
+    this.hasClass = (...tokens) => {
+      return this.selection.every((element) => {
+        let allHaveToken = true;
+        for (const token of tokens) {
+          if (!element.classList.contains(token)) {
+            allHaveToken = false;
+            break;
+          }
+        }
+        return allHaveToken;
+      });
+    };
+    //  ===
+    //  SET
+    //  ===
+    /**
+     * Sets the innerText to given string
+     * @param text Text
+     */
+    this.setText = (text) => {
+      this.forEach((element) => element.innerText = text);
+      return this;
+    };
+    /**
+     * Sets the innerHTML to given string
+     * @param html HTML markup
+     */
+    this.setHTML = (html) => {
+      this.forEach((element) => element.innerHTML = html);
+      return this;
+    };
+    /**
+     * Sets attributes to all HTML elements
+     * @param attributes Key-Value pairs of attributes
+     */
+    this.setAttributes = (attributes) => {
+      this.forEach((element) => {
+        for (const name of Object.keys(attributes)) {
+          element.setAttribute(name, attributes[name]);
+        }
+      });
+      return this;
+    };
+    /**
+     * Apply CSS to selected elements
+     * @param styles CSS styles object
+     */
+    this.setCSS = (styles) => {
+      this.forEach((element) => {
+        for (const property of Object.keys(styles)) {
+          element.style.setProperty(property, styles[property]);
+        }
+      });
+      return this;
+    };
+    //  ===
+    //  GET
+    //  ===
+    /**
+     * Returns the HTML DOM Element at the given index position
+     * @param idx Index position
+     * @returns HTMLElement at index position
+     */
+    this.getElement = (idx) => {
+      return this.selection[idx];
+    };
+    //  ======
+    //  REMOVE
+    //  ======
+    /**
+     * Removes DOM elements that satisfy the condition (condition default to always return true)
+     * @param condition Callback function to determine whether to remove an element
+     */
+    this.removeElement = (condition = () => true) => {
+      this.forEach((element) => condition(element) && element.remove());
+      this.filter((element) => element != null);
+      return this;
+    };
+    /**
+     * Removes the given attributes from all selected HTML elements
+     * @param attributes List of attributes to remove
+     */
+    this.removeAttribute = (name) => {
+      this.forEach((element) => element.removeAttribute(name));
+      return this;
+    };
+    //  =====
+    //  NODES
+    //  =====
+    /**
+     * Selects the enxt element siblings
+     */
+    this.next = () => {
+      this.selection = this.selection.map((element) => element.nextElementSibling).filter((element) => element != null);
+      return this;
+    };
+    /**
+     * Selects the previous element siblings
+     */
+    this.prev = () => {
+      this.selection = this.selection.map((element) => element.previousElementSibling).filter((element) => element != null);
+      return this;
+    };
+    /**
+     * Appends the given HTML nodes to the selected DOM elements
+     * @param nodes HTML Nodes
+     */
+    this.append = (...nodes) => {
+      this.forEach((element) => element.append(...nodes));
+      return this;
+    };
+    //  ======
+    //  EVENTS
+    //  ======
+    /**
+     * Registers a onEvent handler callback
+     * @param event HTML Element Event
+     * @param listener Callback listener to fire on event
+     * @param options Event listener options
+     */
+    this.on = (event, listener, options) => {
+      this.selection.forEach((element) => element.addEventListener(event, listener, options));
+      return this;
+    };
+    //  =======
+    //  UTILITY
+    //  =======
+    /**
+     * Filters elements based on provided criteria
+     * @param cb Callback function to determine filter criteria
+     */
+    this.filter = (cb) => {
+      this.selection = this.selection.filter(cb);
+      return this;
+    };
+    /**
+     * Executes a callback for each HTML element
+     * @param cb Callback function
+     * @returns 
+     */
+    this.forEach = (cb) => {
+      this.selection.forEach(cb);
+      return this;
+    };
+    if (typeof element === "string") {
+      this.selection = Array.from(document.querySelectorAll(element));
+    } else if (Array.isArray(element)) {
+      this.selection = [...element];
+    } else {
+      this.selection = [element];
+    }
+    return this;
+  }
+};
+var $ = (element) => new _$(element);
+$.create = (...tagNames) => {
+  const elements = [];
+  tagNames.forEach((tagName) => {
+    const element = document.createElement(tagName);
+    elements.push(element);
+  });
+  return new _$(elements);
+};
+export {
+  $
+};
+//# sourceMappingURL=index.js.map
