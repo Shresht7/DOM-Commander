@@ -1,6 +1,48 @@
-//  =============
-//  DOM COMMANDER
-//  =============
+// ----------------
+// TYPE DEFINITIONS
+// ----------------
+
+type HTMLElementOrSelector = HTMLElement | string
+
+// ---------
+// SELECTION
+// ---------
+
+class Selection extends Array<Element> {
+
+    // CONSTRUCTOR
+    // -----------
+
+    /**
+     * Instantiates a new Selection object
+     * @param elements List of HTML elements or DOM selectors to select
+     */
+    constructor(...elements: HTMLElementOrSelector[]) {
+        super()
+        if (elements) {
+            this.select(...elements)
+        }
+    }
+
+    // SELECT
+    // ------
+
+    /**
+     * Selects HTML elements and appends them to the selection
+     * @param elements List of HTML elements or DOM selectors to select
+     */
+    public select(...elements: HTMLElementOrSelector[]) {
+        for (const element of elements) {
+            if (typeof element === 'string') {
+                this.push(...Array.from(document.querySelectorAll(element))) //  Convert NodeList --> Array
+            } else {
+                this.push(element)
+            }
+        }
+        return this
+    }
+
+}
 
 class _$ {
 
