@@ -33,7 +33,13 @@ class _$ {
 
     /** Filter the selection based on a callback function */
     filter(cb: (element: HTMLElement, idx: number, arr: HTMLElement[]) => boolean) {
-        this.selection = this.selection.filter(cb)
+        this.selection = this.selection.filter((element, idx, arr) => {
+            if (cb(element, idx, arr)) {
+                return element
+            } else {
+                element.remove()
+            }
+        })
         return this
     }
 
