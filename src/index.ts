@@ -8,7 +8,10 @@ type HTMLElementOrSelector = HTMLElement | string
 // SELECTION
 // ---------
 
-class Selection extends Array<Element> {
+class Selection {
+
+    /** The selection of elements to manipulate */
+    private selection: Element[] = []
 
     // CONSTRUCTOR
     // -----------
@@ -18,7 +21,6 @@ class Selection extends Array<Element> {
      * @param elements List of HTML elements or DOM selectors to select
      */
     constructor(...elements: HTMLElementOrSelector[]) {
-        super()
         if (elements) {
             this.select(...elements)
         }
@@ -34,9 +36,9 @@ class Selection extends Array<Element> {
     public select(...elements: HTMLElementOrSelector[]) {
         for (const element of elements) {
             if (typeof element === 'string') {
-                this.push(...Array.from(document.querySelectorAll(element))) //  Convert NodeList --> Array
+                this.selection.push(...Array.from(document.querySelectorAll(element))) //  Convert NodeList --> Array
             } else {
-                this.push(element)
+                this.selection.push(element)
             }
         }
         return this
@@ -46,11 +48,11 @@ class Selection extends Array<Element> {
     // --------
 
     set textContent(text: string) {
-        this.forEach(element => element.textContent = text)
+        this.selection.forEach(element => element.textContent = text)
     }
 
     set innerHTML(text: string) {
-        this.forEach(element => element.innerHTML = text)
+        this.selection.forEach(element => element.innerHTML = text)
     }
 
     // CLASS-LIST
@@ -65,7 +67,7 @@ class Selection extends Array<Element> {
          * @see {@link DOMTokenList.add}
          */
         add: (...tokens: string[]) => {
-            this.forEach(element => element.classList.add(...tokens))
+            this.selection.forEach(element => element.classList.add(...tokens))
             return this
         },
 
@@ -75,7 +77,7 @@ class Selection extends Array<Element> {
          * @see {@link DOMTokenList.remove}
          */
         remove: (...tokens: string[]) => {
-            this.forEach(element => element.classList.remove(...tokens))
+            this.selection.forEach(element => element.classList.remove(...tokens))
             return this
         },
 
@@ -86,7 +88,7 @@ class Selection extends Array<Element> {
          * @see {@link DOMTokenList.toggle}
          */
         toggle: (token: string, force?: boolean) => {
-            this.forEach(element => element.classList.toggle(token, force))
+            this.selection.forEach(element => element.classList.toggle(token, force))
             return this
         },
 
@@ -95,7 +97,7 @@ class Selection extends Array<Element> {
          * @param tokens CSS className
          */
         every: (token: string) => {
-            return this.every(element => element.classList.contains(token))
+            return this.selection.every(element => element.classList.contains(token))
         },
 
         /**
@@ -103,7 +105,7 @@ class Selection extends Array<Element> {
          * @param tokens CSS className
          */
         some: (token: string) => {
-            return this.some(element => element.classList.contains(token))
+            return this.selection.some(element => element.classList.contains(token))
         }
 
     }
