@@ -42,6 +42,17 @@ class Selection extends Array<Element> {
         return this
     }
 
+    // CONTENTS
+    // --------
+
+    set textContent(text: string) {
+        this.forEach(element => element.textContent = text)
+    }
+
+    set innerHTML(text: string) {
+        this.forEach(element => element.innerHTML = text)
+    }
+
     // CLASS-LIST
     // ----------
 
