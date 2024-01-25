@@ -145,23 +145,13 @@ class Selection {
         return this
     }
 
-}
-
     /**
-     * Checks if all selected elements have the given classes
-     * @param tokens CSS classNames
+     * Removes the given attribute from all selected elements
+     * @param name The name of the attribute to remove
      */
-    hasClass = (...tokens: string[]) => {
-        return this.selection.every(element => {
-            let allHaveToken = true
-            for (const token of tokens) {
-                if (!element.classList.contains(token)) {
-                    allHaveToken = false
-                    break
-                }
-            }
-            return allHaveToken
-        })
+    public removeAttribute(name: string) {
+        this.selection.forEach(element => element.removeAttribute(name))
+        return this
     }
 
     // STYLE
