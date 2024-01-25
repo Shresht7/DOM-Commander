@@ -121,6 +121,14 @@ class _$ {
          * Checks if all selected elements have the given class
          * @param tokens CSS className
          */
+        contains: (token: string) => {
+            return this.selection.every(element => element.classList.contains(token))
+        },
+
+        /**
+         * Checks if all selected elements have the given class
+         * @param tokens CSS className
+         */
         every: (token: string) => {
             return this.selection.every(element => element.classList.contains(token))
         },
